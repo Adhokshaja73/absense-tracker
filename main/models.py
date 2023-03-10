@@ -14,6 +14,15 @@ class Role(models.Model):
     def __str__(self):
         return self.user.username
 
+# Notification models. It has a foreignkey to user model to store the user who is notified
+# and message field to store the message of the notification
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    message = models.TextField()
+
+    def __str__(self):
+        return self.user.username
+
 # model to store team data. there's one team leader and many team members. team leader is a manager and team members are employees
 class Team(models.Model):
     team_leader = models.ForeignKey(User, on_delete=models.CASCADE, related_name='team_leader')
@@ -32,7 +41,6 @@ class Team(models.Model):
 
 # model to store the application for leave. it has a foreignkey to user model to store the user who applied for leave
 # and foreignkey to team model to store the team of the user who applied for leave
-
 class LeaveApplication(models.Model):
     STATUS_CHOICES = (('pending', 0), ('approved', 1), ('rejected', 2))
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
