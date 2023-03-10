@@ -95,6 +95,47 @@ def approveLeaveApplication(request):
         return JsonResponse({'status': 400, 'message': 'Bad request'})
 
 
+# FUNCTION TO REJECT LEAVE APPLICATION
+# rejects leave application submitted by team members. Aprover must be a team leader of the team of the user who applied for leave
+# and creates a notification for the user who applied for leave
+# takes only post request
+# returns json response which contains status and message which are set based on the result of the function
+# required data to be sent in post request
+# leave_application_id: id of the leave application to be rejected
+def rejectLeaveApplication(request):
+    if request.method == 'POST':
+        # get data from post request
+        data = request.POST
+        # get user from request
+        user = request.user
+        # get leave application id from request
+        leave_application_id = data.get('leave_application_id')
+        # get leave application object from leave application id
+        leave_application = LeaveApplication.objects.get(id=leave_application_id)
+        # get team object from leave application object
+        team = leave_application.team
+        # get team leader from team object
+        team_leader = team.team_leader
+        # check if user is team leader
+        if user == team_leader:
+            # set status of leave application to rejected
+            leave_application.status = 2
+            # save leave application object
+            leave_application.save()
+            # create notification object
+            notification = Notification.objects.create(user=leave_application.user, message='Your leave application has been rejected')
+            # save notification object
+            notification.save()
+            # return json response with status 200 and message 'Leave application rejected successfully'
+            return JsonResponse({'status': 200, 'message': 'Leave application rejected successfully'})
+        else:
+            # return json response with status 400 and message 'You are not authorized to reject this leave application'
+            return JsonResponse({'status': 400, 'message': 'You are not authorized to reject this leave application'})
+    else:
+        # return json response with status 400 and message 'Bad request'
+        return JsonResponse({'status': 400, 'message': 'Bad request'})
+
+
 # Create calender event function
 # creates a calender event for all members of a team and creates a notification for all members of the team
 # and sends an email to all members of the team
