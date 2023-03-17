@@ -1,12 +1,108 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
-
+from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 from main.models import *
+from main.forms import *
 
-# Create your views here.
+from django.contrib.auth import login, authenticate,logout #add this
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm #add this
+
+# --------------------  LOGIN and password reset views --------------------
+
+
+def register_request(request):
+	...
+
+def login_request(request):
+    temp = Roles.objects.all()
+    print(temp)
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request,user)
+                temprole = Roles.objects.filter(user=request.user.id).first()
+                temp = Roles.objects.all()
+                 #add this   
+                print(temp)
+                print(temprole)
+                print(temprole.role)
+                if temprole is None:
+                    messages.info(request, f"You Dont have a role assigned! please contact your manager")
+                    logout(request)
+                    
+
+                if temprole.role == 'Team_lead':      
+                    messages.info(request, f"You are now logged in as {username}.Your role is Team lead ")
+                    return redirect("admin_dashboard_url")
+                elif temprole.role == 'team_member':
+                    messages.info(request, f"You are now logged in as {username}.Your role is Team member")
+                    return redirect("member_dashboard_url")
+                
+                    
+        
+        else:
+            messages.error(request,"Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request=request, template_name="login.html", context={"login_form":form})
+
+
+@login_required
+def logout_request(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return redirect("login")
+
+# ----------------------- TEAM VIEWS -----------------------------
+@login_required
+def admin_teamlist(request):
+    tempteam = Team.objects.filter(team_leader=request.user.id).first()
+    print(tempteam)
+    context = {'tempteam':tempteam}
+    return render(request, 'team/admin_teamlist.html',context)
+
+@login_required
+def admin_addmembers(request):
+    templist = User.objects.filter(id__in=Roles.objects.filter(role='team_member').values_list('user_id', flat=True))
+    print(templist)
+    context = {'templist':templist}
+    return render(request, 'team/admin_addmembers.html',context)
+
+
+
+
+
+# ------------------------DASHBOARD views ----------------------------
+@login_required
+def member_dashboard(request):
+    return render(request, 'member_dashboard.html')
+
+@login_required
+def admin_dashboard(request):
+    return render(request, 'dashboard/admin_dashboard.html')
+
 def homePageView(request):
-    # return httpresponse to say hello world
-    return HttpResponse('Hello, World!') 
+    
+    return render(request,"index.html")
+
+
+# ----------------------- LEAVES VIEWS -----------------------
+@login_required
+def admin_leavelist(request):
+    templist = LeaveApplication.objects.filter(team_id__team_leader=request.user.id)
+    print(templist) 
+    context = {'templist':templist}
+
+    return render(request, 'leaves/admin_leavelist.html',context)   
+
+
+@login_required
+def member_leaveapplication(request):
+    return render(request, 'leaves/member_leaveapplication.html')
 
 # FUNCTION TO TAKE APPLICATION FOR LEAVE
 
@@ -20,7 +116,7 @@ def homePageView(request):
 # start_date: start date of the leave
 # end_date: end date of the leave
 # reason: reason for the leave
-
+@login_required
 def submitLeaveApplication(request):
     if request.method == 'POST':
         # get data from post request
@@ -167,3 +263,29 @@ def createCalenderEvent(team, start_date, end_date, title, description, location
         email_body = 'Hi ' + full_name + ',\n\n' + description + '\n\n' + 'Start Date: ' + start_date + '\n' + 'End Date: ' + end_date + '\n' + 'Location: ' + location + '\n\n' + 'Regards,\n' + 'Team Management System'
         # send email
         # send_mail(email_subject, email_body, '
+
+
+# ======================== TICKET VIEWS =================================================#
+
+# view 01 - member raise ticket
+def member_raise_ticket(request):
+    form = TicketForm()
+
+    if request.method == 'POST':
+        tempform = form(request.POST)
+        tempdata = tempform.dave(commit=False)
+        tempdata.ticket_number = "232231"
+        tempdata.raised_by = request.user
+        tempdata.ticket_status = 0
+        
+        tempdata.save()
+
+    context = {'form':form}
+    return render(request, "member/member_raise_ticket.html", context)
+
+# view 02 - member_tickets_list
+def member_tickets(request):
+    myticketsList  = TeamTicket.objects.filter(raised_by=request.user.id)
+
+    context = {"tlist":myticketsList}
+    return render(request, "member/member_tickets.html", context)
