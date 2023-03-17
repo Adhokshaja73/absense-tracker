@@ -165,5 +165,4 @@ def createCalenderEvent(team, start_date, end_date, title, description, location
         full_name = first_name + ' ' + last_name
         # get email body
         email_body = 'Hi ' + full_name + ',\n\n' + description + '\n\n' + 'Start Date: ' + start_date + '\n' + 'End Date: ' + end_date + '\n' + 'Location: ' + location + '\n\n' + 'Regards,\n' + 'Team Management System'
-        # send email
-        # send_mail(email_subject, email_body, '
+        
