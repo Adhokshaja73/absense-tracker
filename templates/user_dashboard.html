@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <!-- Says hi user name -->
+    <h1>Hi {{ user.user_name }}</h1>
+    {% for i in team_member_profiles %}
+        <h1>{{ i.first_name }} {{ i.last_name }}</h1>
+        <br>
+    {% endfor %}
+</body>
+</html>

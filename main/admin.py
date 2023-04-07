@@ -1,10 +1,6 @@
 from django.contrib import admin
-from .models import TeamTicket, Ticket_type, Roles, Team
-
-
-admin.site.register(TeamTicket)
-admin.site.register(Ticket_type)
-admin.site.register(Roles)
+from .models import *
+# Register your models here.
+admin.site.register(UserRole)
 admin.site.register(Team)
-# Register your models here
-
+admin.site.register(UserProfile)

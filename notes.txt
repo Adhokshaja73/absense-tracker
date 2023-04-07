@@ -1,0 +1,23 @@
+Pages needed : 
+	SignUp
+	Login
+
+	Setup account 	: Form to take name, phone number, associate id
+
+	Admin Dashboard	: Add ppl to teams and assign team leader  : Django Admin.
+
+	Manager Dashboard	: 3 options : 
+							1) List all leave applications
+							2) List all tickets raised for the team
+							3) View Calender
+						
+	Employee Dashboard : 2 options : 1) check calender
+						   2) Apply for leaves
+		
+
+
+
+Flow : Create account.. 
+	 Wait for role to be assigned by admin
+	 Once role is assigned and team is assigned, you can get full access
+	 
