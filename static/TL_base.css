@@ -1,0 +1,162 @@
+body::-webkit-scrollbar {
+    width: .4rem;
+}
+ 
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 27, 125);
+  outline: 1px solid rgb(37, 37, 37);
+}
+
+body{
+    font-family: 'Nunito', sans-serif;
+}
+
+/* ----------------------------------------------------- */
+
+nav{
+    background: rgb(255, 255, 255) !important;
+    box-shadow: -1px 5px 5px 0px rgba(0,0,0,0.25);
+}
+
+
+.nav-item a{
+    
+    margin: .8rem;
+    font-weight: 400;
+    font-size: 1.1rem;
+}
+
+.nav-link:hover{
+    background-color: rgb(94, 122, 234);
+    color: aliceblue !important;
+    border-radius: .4rem;
+}
+
+.active{
+    background-color: rgb(44, 72, 183);
+    color: aliceblue !important;
+    border-radius: .4rem;
+}
+
+
+
+.land-container{
+    
+    background-color: rgb(255, 255, 255);
+    min-height: 60vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.imagearea{
+    padding: 2rem;
+    padding-left: 0rem;
+}
+
+footer {
+    text-align: center;
+}
+
+.mincontainer{
+    min-height: 70vh !important;
+}
+
+.card{
+    border: none;
+    box-shadow: 0 0 5px 0px rgba(0,0,0,0.25);
+    border-radius: 1rem;
+    background-color: rgb(99, 153, 247);
+    padding: 2rem;
+    margin: 2rem;
+}
+
+.card .img-fluid{
+    padding: 4rem;
+}
+
+.card-title{
+    font-size: 5rem !important;
+}
+
+
+
+
+.accordion-header{
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.accordion-body{
+    background-color: rgb(106, 156, 255) !important;
+}
+
+.displaycard{
+    height:250px;
+    min-width:200px;
+}
+
+
+/* ------------------------ Admin dashboard--------------- */
+.box-container{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    justify-content: center;
+}
+
+.box{
+    display:grid;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(158, 205, 48);
+    margin:1rem;
+
+    width: 160px;
+    height:160px;
+
+    border-radius: 1rem;
+    box-shadow: 7px 9px 18px -8px rgba(0,0,0,0.2);
+    justify-self: center;
+    padding: 1rem;
+
+}
+
+.section-header{
+    background-color: rgb(28, 52, 110);
+    width: fit-content;
+    transform: skew(-14deg);
+    color: aliceblue;
+    border-radius: 1rem 0rem 1rem 0rem;
+    box-shadow: 7px 9px 18px -8px rgba(0,0,0,0.75);
+}
+
+.team-card{
+    background-color: rgb(105, 222, 248);
+    border-radius: 1rem;
+
+    border-radius: 21px;
+    background: linear-gradient(225deg, #e3e3e3, #ffffff);
+    box-shadow:  -7px 7px 14px #c7c7c7,
+                 7px -7px 14px #ffffff;
+}
+.second{
+    text-align: end;
+}
+
+.info-btn:hover{
+    font-weight: 700;
+}
+
+/* ------------ leave list--------------- */
+.section-header2{
+    margin-top:2rem;
+    background-color: rgb(28, 52, 110);
+    width: fit-content;
+    color: aliceblue;
+    border-radius: 1rem 1rem 0rem 1rem;
+    box-shadow: 7px 9px 18px -8px rgba(0,0,0,0.75);
+}

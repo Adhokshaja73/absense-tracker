@@ -1,0 +1,174 @@
+body{
+    background-color: azure;
+    font-family: 'Nunito', sans-serif;
+    font-weight:2px;
+}
+
+/* .tabsection{
+    background-color: rgba(75, 75, 75, 0);
+    
+    border-radius: 0.6rem;
+    box-shadow: 10px 10px 27px -12px rgba(0,0,0,0.75);
+} */
+
+.tab-btn{
+    background-color:  rgb(21, 161, 204);
+    /* rgb(21, 107, 204); */
+    color: rgb(255, 255, 255);
+    border: 0;
+    padding: .6rem;
+    border-top-right-radius: .6rem;
+    border-top-left-radius: .6rem;
+}
+
+.tab-btn-group{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-gap:.4rem;
+    background-color: transparent;
+}
+
+.tab-content-group{
+    background-color:  rgb(171, 217, 231);
+    border: 2px rgb(16, 83, 160) solid;
+    border-bottom-left-radius: .4rem;
+    border-bottom-right-radius: .4rem;
+}
+
+.tab-btn-active{
+    background-color: rgb(16, 83, 160);
+}
+
+.tab-btn:hover{
+    background-color: rgb(16, 83, 160);
+}
+
+.tab-content{
+    padding: 1rem;
+    display: none;
+}
+
+#ticket{
+    display: block;
+}
+
+/* -------------leave ------------------------------------ */
+.leavelist{
+    display:grid;
+    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    justify-content: center;
+    align-items: center;
+    grid-gap: 1rem;
+    text-decoration: none;
+}
+
+.leavelist a{
+    text-decoration: none;
+    list-style: none;
+    color: black;
+}
+
+.leavebox{
+    background-color:  rgb(104, 193, 220);;
+    display:grid;
+    text-align: center;
+    box-shadow: 6px 7px 9px -7px rgba(0,0,0,0.75);
+    justify-content: center;
+    padding: .4rem;
+    border-radius: 1rem;
+    transition: .3s;
+}
+
+.leavelist h4,p{
+    width: fit-content;
+}
+
+.leavelist img{
+    padding: .4rem;
+    justify-self: center;
+}
+
+.leavebox:hover{
+    transform: scale(1.1);
+}
+
+/* ---------- Team --------------------- */
+.member-card{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: .3rem;
+    border: 2px solid rgba(94, 162, 162, 0.749);
+    margin-bottom: 1rem;
+}
+
+/* ----------- Ticket ------------------ */
+.ticket-card{
+    background-color: rgb(121, 167, 223);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr 50px;
+    align-items: center;
+    justify-content: center;
+    
+    border-top-left-radius: 10rem;
+    border-bottom-left-radius: 10rem;
+    padding: .4rem;
+    margin-top:10px;
+}
+
+.ticket-card img{
+    border-radius: 10rem;
+}
+
+.m-content{
+    align-self: center;
+}
+
+.m-content h5,h6{
+    margin: 0;
+}
+
+.last{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    
+    align-self: center;
+    padding-right:10px;
+    height: 100%;
+    text-align: center;
+}
+
+.raised{
+    background-color: rgba(255, 68, 47, 0.776);
+}
+
+.processing{
+    background-color: rgba(255, 255, 0, 0.751);
+}
+
+.closed{
+    background-color: rgba(105, 174, 3, 0.674);
+}
+
+@media screen and (max-width: 768px) {
+
+    .ticket-card{
+        display: block;
+    }
+
+    .ticket-card{
+        border-radius: 0;
+        text-align: center;
+    }
+
+    .last{
+        writing-mode: horizontal-tb; 
+        text-orientation:none;
+        align-self: center;
+        padding:10px;
+    }
+    
+}

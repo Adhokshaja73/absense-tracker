@@ -1,0 +1,78 @@
+<!-- templates/account/login.html -->
+
+<!-- this change only -->
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load static %}
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<!-- custome codee -->
+<div class="container">
+    <div class="row grid align-items-center m-4 pt-5 g-4">
+      
+      <div class="col-md-6 text-center">
+        <img src="{% static 'IMAGES/teamicon2.png'%}" alt="" class="img img-fluid p-4" >
+        <h3 class="text p-4">Login to <b>Team Tracker</b>  <br>
+        and manage your team!</h3>
+      </div>
+
+      <div class="col-md-4 ">
+        <h1 class="mb-4">Credentials here!</h1>
+        
+       
+         
+
+          <form method="post" class="login-form">
+            {% csrf_token %}
+
+            {% if form.errors %}           
+            {% for field in form %}
+                {% for error in field.errors %}
+                  
+                  <p>{{ error|escape }}</p>
+                    
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              
+                  <p>{{ error|escape }}</p>
+                
+            {% endfor %}
+          {% endif %}
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Username</label>
+              
+
+              {% render_field form.login class+="form-control" %}
+              <span class="text-error">{{ form.login.errors }}</span>
+
+              <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              {% render_field form.password class+="form-control" %}
+              <span class="text-error">{{ form.password.errors }}</span>
+              <!-- <input type="password" class="form-control" id="exampleInputPassword1"> -->
+            </div>
+            <div class="mb-3 ">
+              <a href="{% url 'account_reset_password' %}" class="resetpwd">can't remember the password?</a>
+            </div>
+
+
+
+            <button type="submit" class="btn-login">Login</button>
+            <a class="btn btn-login my-3" href="{{ signup_url }}">sign up</a> </p>
+          </form>
+          
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+

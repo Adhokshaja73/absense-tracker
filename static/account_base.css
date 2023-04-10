@@ -1,0 +1,56 @@
+body{
+    background-color: #5a9eff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.resetpwd {
+    color:rgb(0, 0, 0);
+    list-style: None;
+    text-decoration: none;
+}
+
+.img{
+    max-width: 400px;
+}
+
+.btn-login{
+    background-color: #001f4b;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    width:100%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-login:hover{
+    background-color: #001f4b;
+    opacity: 0.8;
+}
+
+label{
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+body::-webkit-scrollbar {
+    width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+background-color: rgb(255, 255, 255);
+outline: 1px solid rgb(0, 0, 0);
+}

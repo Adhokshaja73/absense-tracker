@@ -9,7 +9,7 @@ from django.db.models import Q
 # if user is logged in, check if user is team leader or team member
 # return the appropriate homepage
 @login_required
-def home(request):
+def dashboard(request):
     # check if user profile exists
     # if not redirect to create_user_profile page
     user_profile = UserProfile.objects.filter(user=request.user)
@@ -56,7 +56,7 @@ def home(request):
                 # get pending leave applications and add to context
                 leaveApplications = LeaveApplication.objects.filter(team = userTeam, status = 1).values()
                 context['leaveApplications'] = leaveApplications
-                return render(request, 'team_leader_dashboard.html', context)
+                return render(request, 'dashboard/TL_dashboard.html', context)
 # function to create userProfile. 
 # if request is post then the form is validated and saved
 # if request is get then the form is returned in context

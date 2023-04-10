@@ -7,7 +7,7 @@
     <title>Team Leader Dashboard</title>
 </head>
 <body>
-    <h1>Hi {{ user.user_name }}</h1>
+    <h1>Hi {{ request.user }}</h1>
     {% for i in team_member_profiles %}
         <h1>{{ i.first_name }} {{ i.last_name }}</h1>
         <br>

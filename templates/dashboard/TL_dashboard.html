@@ -1,0 +1,253 @@
+{% extends 'dashboard/TL_base.html' %}
+{% load static %}
+
+{% block css %}
+<title>Team Lead Dashboard</title>
+<link rel="stylesheet" href="{% static 'TL_dashboard.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container tabsection my-5 ">
+    <div class="tab-btn-group ">
+        <button class="tab-btn tabbtn tab-btn-active" onclick="tabselect(event, 'leave')">
+            Leaves
+        </button>
+        <button class="tab-btn tabbtn " onclick="tabselect(event, 'team')">
+            Team
+        </button>
+        <button class="tab-btn tabbtn " onclick="tabselect(event, 'ticket')">
+            Tickets
+        </button>
+    </div>
+
+    <div class="tab-content-group">
+        <div id="leave" class="tab-content tabcontent ">
+            <div class="leavelist">
+
+                <a href="#">
+                <div class="leavebox">
+                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
+                    <h4>Deekshitha Mickey</h4>
+                    <p>Leave for 23/02/2023</p>
+                </div>
+                </a>
+
+                <div class="leavebox">
+                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
+                    <h4>Deekshitha Mickey</h4>
+                    <p>Leave for 23/02/2023</p>
+                </div>
+
+                <div class="leavebox">
+                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
+                    <h4>Deekshitha Mickey</h4>
+                    <p>Leave for 23/02/2023</p>
+                </div>
+
+                <div class="leavebox">
+                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
+                    <h4>Deekshitha Mickey</h4>
+                    <p>Leave for 23/02/2023</p>
+                </div>
+
+                <div class="leavebox">
+                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
+                    <h4>Deekshitha Mickey</h4>
+                    <p>Leave for 23/02/2023</p>
+                </div>
+
+                <div class="leavebox">
+                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
+                    <h4>Deekshitha Mickey</h4>
+                    <p>Leave for 23/02/2023</p>
+                </div>
+
+                <div class="leavebox">
+                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
+                    <h4>Deekshitha Mickey</h4>
+                    <p>Leave for 23/02/2023</p>
+                </div>
+
+            </div>
+            <p>1 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet eum atque, ab ex molestiae laudantium incidunt eius voluptates repudiandae commodi ducimus id, sequi itaque iure quibusdam ad blanditiis, nam tempore!</p>
+        </div>
+
+        <!-- team tab--------- -->
+        <div id="team" class="tab-content tabcontent">
+            <div class="team-stat row text-center my-3">
+                <div class="col-md-6">
+                    <h4>Team Name</h4>
+                    <h4>Total Members 7</h4>
+                </div>
+                <div class="col-md-6">
+                    <h4>Team leader</h4>
+                    <a class="btn btn-success" href="">Add Members</a>
+                </div>
+            </div>
+          
+            <div class="team-members-list row">
+                <div class="col-md-6">
+                    <div class="member-card">
+                        <img src="profile_avatar.jpg" alt="" width="100px">
+                        <div class="m-content">
+                            <h5>Nikhil Gupta</h5>
+                            <p>hello dev</p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="member-card">
+                        <img src="profile_avatar.jpg" alt="" width="100px">
+                        <div class="m-content">
+                            <h5>Nikhil Gupta</h5>
+                            <p>hello dev</p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="member-card">
+                        <img src="profile_avatar.jpg" alt="" width="100px">
+                        <div class="m-content">
+                            <h5>Nikhil Gupta</h5>
+                            <p>hello dev</p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="member-card">
+                        <img src="profile_avatar.jpg" alt="" width="100px">
+                        <div class="m-content">
+                            <h5>Nikhil Gupta</h5>
+                            <p>hello dev</p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="member-card">
+                        <img src="profile_avatar.jpg" alt="" width="100px">
+                        <div class="m-content">
+                            <h5>Nikhil Gupta</h5>
+                            <p>hello dev</p>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="member-card">
+                        <img src="profile_avatar.jpg" alt="" width="100px">
+                        <div class="m-content">
+                            <h5>Nikhil Gupta</h5>
+                            <p>hello dev</p>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+
+        <!-- Tickets tab--------- -->
+        <div id="ticket" class="tab-content tabcontent">
+        
+            <div class="teicket-stat row text-center my-3">
+                <div class="col-md-6">
+                    <h4>Total tickets - 22</h4>
+                    <h4>Raised tickets- 02</h4>
+                </div>
+                <div class="col-md-6">
+                    <h4>Closed tickets - 20</h4>
+                    <a class="btn btn-success" href="">Search Tickets</a>
+                </div>
+            </div>
+
+            <div class="ticket-card">
+                <img src="profile_avatar.jpg" alt="" width="100px">
+                <div class="m-content">
+                    <h5>Nikhil Gupta</h5>
+                </div> 
+                <div class="m-content">
+                    <h5>Ticket date</h5>
+                </div> 
+                <div class="m-content">
+                    <h6>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatum odio, eveniet blanditiis mollitia nisi explicabo, vel rerum quae architecto culpa accusantium, at consectetur eos aperiam! Necessitatibus natus a temporibus.</h6>
+                </div> 
+                <div class="m-content last raised">
+                    <h5>Raised</h5>
+                </div>
+            </div>
+
+            <div class="ticket-card">
+                <img src="profile_avatar.jpg" alt="" width="100px">
+                <div class="m-content">
+                    <h5>Nikhil Gupta</h5>
+                </div> 
+                <div class="m-content">
+                    <h5>Ticket date</h5>
+                </div> 
+                <div class="m-content">
+                    <h6>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatum odio, eveniet blanditiis mollitia nisi explicabo, vel rerum quae architecto culpa accusantium, at consectetur eos aperiam! Necessitatibus natus a temporibus.</h6>
+                </div> 
+                <div class="m-content last raised">
+                    <h5>Raised</h5>
+                </div>
+            </div>
+
+            <div class="ticket-card">
+                <img src="profile_avatar.jpg" alt="" width="100px">
+                <div class="m-content">
+                    <h5>Nikhil Gupta</h5>
+                </div> 
+                <div class="m-content">
+                    <h5>Ticket date</h5>
+                </div> 
+                <div class="m-content">
+                    <h6>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatum odio, eveniet blanditiis mollitia nisi explicabo, vel rerum quae architecto culpa accusantium, at consectetur eos aperiam! Necessitatibus natus a temporibus.</h6>
+                </div> 
+                <div class="m-content last closed">
+                    <h5>Closed</h5>
+                </div>
+            </div>
+
+            <div class="ticket-card">
+                <img src="profile_avatar.jpg" alt="" width="100px">
+                <div class="m-content">
+                    <h5>Nikhil Gupta</h5>
+                </div> 
+                <div class="m-content">
+                    <h5>Ticket date</h5>
+                </div> 
+                <div class="m-content">
+                    <h6>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatum odio, eveniet blanditiis mollitia nisi explicabo, vel rerum quae architecto culpa accusantium, at consectetur eos aperiam! Necessitatibus natus a temporibus.</h6>
+                </div> 
+                <div class="m-content last processing">
+                    <h5>Processing</h5>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block js %}
+    <script>
+      function tabselect(evt, tabvar){
+          var i, tabcontent, tabbtn;
+
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+              tabcontent[i].style.display = "none";
+          }
+
+          tabbtn = document.getElementsByClassName("tabbtn");
+          for (i = 0; i < tabbtn.length; i++) {
+              tabbtn[i].className = tabbtn[i].className.replace("tab-btn-active", "");
+          }
+
+          document.getElementById(tabvar).style.display = "block";
+          evt.currentTarget.className += "tab-btn-active";
+      }
+  </script>
+{% endblock %}
