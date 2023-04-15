@@ -1,0 +1,24 @@
+add cdn :
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+ajax : 
+
+
+    $.ajax({
+        // type can be GET or POST
+        type: "", 
+
+        // URL is the endpoint to send the request to. refer urls.py to see which url for what
+        url: "" ,
+
+        // data is required ONLY in POST request to send the arguments. remove if its a get request.
+        // See the view function corresponding to url find what arguments are required
+        // pass as a key value pair. copy same key as the one used in the view function
+        data : {
+                "key" : value
+            },
+            
+        success: function (response) {
+            // handle the response from server. response.status will give status from the server, response.message will give the message.
+        }
+    })

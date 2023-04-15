@@ -9,4 +9,5 @@ urlpatterns = [
 
     # ------------------ Dashboard URLS ---------------------------------------------------
     path('', views.dashboard, name='dashboard'),
+    path('submit_leave_application/', views.create_leave_application, name='submit_leave_application'),
 ]

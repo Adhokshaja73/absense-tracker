@@ -84,5 +84,6 @@ class Notification(models.Model):
 
 class CalenderEvent(models.Model):
     title = models.CharField(max_length=100)
-    dateTime = models.DateTimeField()
+    startDateTime = models.DateTimeField()
+    endDateTime = models.DateTimeField()
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
