@@ -172,4 +172,5 @@ def approve_leave_application(request):
                                     return JsonResponse({'status': 'success', 'message': 'Leave application rejected'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Only post request allowed'})
+
     
