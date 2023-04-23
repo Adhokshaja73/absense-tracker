@@ -1,0 +1,76 @@
+{% extends 'dashboard/TM_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block css %}
+<title>TT request leave</title>
+<link rel="stylesheet" href="{% static 'TM_dashboard.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="leavelist container my-5">
+
+    
+
+    <form action="" method="Post" class="form px-5">
+        {% csrf_token %}
+
+        {% if form.errors %}           
+            {% for field in form %}
+                {% for error in field.errors %}
+                
+                <p>{{ error|escape }}</p>
+                    
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            
+                <p>{{ error|escape }}</p>
+                
+            {% endfor %}
+        {% endif %}
+        <h2 class="header my-4 ">Request Leave</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Leave Start Date</label>
+                    {% render_field LeaveApplicationForm.start_date class+="form-control" type="date" %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Leave End Date</label>
+                    {% render_field LeaveApplicationForm.end_date class+="form-control" type="date" %}
+                </div>
+
+                
+                <div class="mb-3">
+                    <p>Enter the same start and end date if the leave is for 1 day</p>
+                </div>
+                
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success">Request leave</button>
+                </div>
+                
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Reason</label>
+                    {% render_field LeaveApplicationForm.reason class+="form-control" type="Text" %}
+                </div>
+            </div>
+
+            <!-- <input type="submit" class="btn btn-success" name="Request Leave" id=""> -->
+        </div>
+    </form> 
+</div>   
+{% endblock %}
+
+
+{% block js %}
+   
+{% endblock %}
+
+
+

@@ -1,0 +1,218 @@
+{% extends 'dashboard/TM_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block css %}
+<title>Team Member Dashboard</title>
+<link rel="stylesheet" href="{% static 'TM_dashboard.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container tabsection my-5 py-5">
+    <div class="tab-btn-group ">
+        <button class="tab-btn tabbtn tab-btn-active" onclick="tabselect(event, 'team')">
+            My Team
+        </button>
+       
+        <button class="tab-btn tabbtn " onclick="tabselect(event, 'leavelist')">
+            My Leave Applications
+        </button>
+
+        <button class="tab-btn tabbtn " onclick="tabselect(event, 'ticketlist')">
+            My Tickets
+        </button>
+    </div>
+
+    <div class="tab-content-group">
+        
+
+        <!-- team tab--------- -->
+        <div id="team" class="tab-content tabcontent">
+            <div class="team-stat row text-center m-2 pt-2 mb-4">
+                <div class="col-md-4">
+                    <h4>{{userteam.team_name}}</h4>
+                </div>
+                <div class="col-md-4">
+                    <h4>Team Members - {{team_member_profiles|length}}</h4>
+                </div>
+                <div class="col-md-4">
+                    <h4>Team Lead - {{userteam.team_leader}}</h4>
+                </div>
+            </div>
+          
+            <div class="team-members-list row">
+                {% if grantedLeaves %}
+                {% for each in grantedLeaves %}
+                <!-- <div class="col-md-6">                    
+                    <div class="member-card">
+                        <img src="{{each.profilePicture.url}}" alt="" width="100px" height="100px">
+                        <div class="m-content">
+                            <h5>{{each.first_name }} {{each.last_name}}</h5>
+                            <p>{{each.phone_number}}</p>
+                        </div> 
+                    </div>
+                </div> -->
+                <div class="col-md-6">                    
+                    <div class="member-card">
+                        <img src="{{each.userProfileurl.profilePicture.url}}" alt="" class="img-rounded" width="100px" height="100px">
+                        <div class="m-content">
+                            <h5>{{each.userProfileurl.first_name}}  {{each.userProfileurl.last_name}}</h5>
+                            <p>Leave on {{each.start_date}} to {{each.end_date}}</p>
+                            <h6>Granted</h6>
+                        </div> 
+                    </div>
+                </div> 
+                {% endfor %}
+                {% else %}
+                    <h4 class="text-center">There are no granted leaves for the team yet</h4>
+                {% endif %}
+            </div>
+           
+        </div>
+
+
+        <!-- leave list tab -->
+        <div id="leavelist" class="tab-content tabcontent ">
+            <!-- <div class="leavelist">
+
+                <div class="row">
+                    {% for each in leaveapplications %}
+                    <div class="col-md-6 p-2">
+                        <div class="card">
+                            <h2>Application {{forloop.counter}}</h2>
+                            <hr>
+                            <h4>
+                                Leave from - {{each.start_date}} <br>
+                                Leave to - {{each.end_date}} <br>
+                                Applied on - {{each.applied_date}} <br>
+                            </h4>
+                            <h4>Status - {{each.status}}</h4>
+                        </div>
+                    </div>
+                    {% endfor%}
+
+                </div>
+   
+            </div> -->
+
+            {% if leaveapplications %}
+            <table class="table table-dark table-responsive table-striped rounded rounded-3 overflow-hidden text-center mt-3">
+                <thead>
+                <tr>
+                    <th scope="col">Slno</th>
+                    <th scope="col">Applied by</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">Start date</th>
+                    <th scope="col">End date</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for each in leaveapplications %}
+                    <tr>
+                        <td scope="col">{{each.id}}</td>
+                        <td scope="col">{{each.user}}</td>
+                        <td scope="col">{{each.team}}</td>
+                        <td scope="col">{{each.start_date}}</td>
+                        <td scope="col">{{each.end_date}}</td>
+                        <td scope="col">{{each.reason}}</td>
+                        <td scope="col">{{each.status}}</td>
+                    </tr>
+                {% endfor %}
+                
+                </tbody>
+            </table>
+            {% else %}
+                <h5 class="p-4">There are no leave applications as of now!</h5>
+            {% endif %}
+                    
+        </div>
+
+        <!-- Ticket list tab -->
+        <div id="ticketlist" class="tab-content tabcontent ">
+            <div class="ticketlist">
+                {% if tickets %}
+
+                    {% for each in tickets %}
+                    <div class="ticket-card">
+                        <div class="round-slno">
+                           <b> <h5 class="slno">{{forloop.counter}}</h5></b>
+                        </div>
+                        <div class="m-content">
+                            <h5>{{each.ticket_type}}</h5>
+                        </div> 
+                        <div class="m-content">
+                            <h5>{{each.ticket_number}}</h5>
+                        </div>
+                        <div class="m-content">
+                            <h5>{{each.raised_date}}</h5>
+                        </div>
+                         
+                        <div class="m-content">
+                            <h6>{{each.issue_detail}}</h6>
+                        </div> 
+                        {% if each.ticket_status == 0 %}
+                            <div class="m-content last raised">
+                                <h5>Raised</h5>
+                            </div>
+                        {% elif each.ticket_status == 1 %}
+                            <div class="m-content last processing">
+                                <h5>Processing</h5>
+                            </div>
+                        {% elif each.ticket_status == 2 %}
+                            <div class="m-content last closed">
+                                <h5>Closed</h5>
+                            </div>
+                        {% endif %}
+                        
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <h5 class="p-4">There are no Tickets as of now!</h5>
+                {% endif %}
+
+
+            
+                
+            </div>
+        </div>
+
+        
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block js %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+      function tabselect(evt, tabvar){
+          var i, tabcontent, tabbtn;
+
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+              tabcontent[i].style.display = "none";
+          }
+
+          tabbtn = document.getElementsByClassName("tabbtn");
+          for (i = 0; i < tabbtn.length; i++) {
+              tabbtn[i].className = tabbtn[i].className.replace("tab-btn-active", "");
+          }
+
+          document.getElementById(tabvar).style.display = "block";
+          evt.currentTarget.className += "tab-btn-active";
+      }
+
+
+    //   Ajax request for leave application approval
+
+
+  </script>
+
+  
+{% endblock %}

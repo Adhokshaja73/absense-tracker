@@ -10,218 +10,137 @@
 {% block content %}
 <div class="container tabsection my-5 ">
     <div class="tab-btn-group ">
-        <button class="tab-btn tabbtn tab-btn-active" onclick="tabselect(event, 'leave')">
-            Leaves
-        </button>
-        <button class="tab-btn tabbtn " onclick="tabselect(event, 'team')">
+        <button class="tab-btn tabbtn tab-btn-active" onclick="tabselect(event, 'team')">
             Team
         </button>
+
+        <button class="tab-btn tabbtn " onclick="tabselect(event, 'leave')">
+            Leave applications
+        </button>
+        
         <button class="tab-btn tabbtn " onclick="tabselect(event, 'ticket')">
-            Tickets
+            Raised Tickets
         </button>
     </div>
 
     <div class="tab-content-group">
-        <div id="leave" class="tab-content tabcontent ">
-            <div class="leavelist">
-
-                <a href="#">
-                <div class="leavebox">
-                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
-                    <h4>Deekshitha Mickey</h4>
-                    <p>Leave for 23/02/2023</p>
-                </div>
-                </a>
-
-                <div class="leavebox">
-                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
-                    <h4>Deekshitha Mickey</h4>
-                    <p>Leave for 23/02/2023</p>
-                </div>
-
-                <div class="leavebox">
-                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
-                    <h4>Deekshitha Mickey</h4>
-                    <p>Leave for 23/02/2023</p>
-                </div>
-
-                <div class="leavebox">
-                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
-                    <h4>Deekshitha Mickey</h4>
-                    <p>Leave for 23/02/2023</p>
-                </div>
-
-                <div class="leavebox">
-                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
-                    <h4>Deekshitha Mickey</h4>
-                    <p>Leave for 23/02/2023</p>
-                </div>
-
-                <div class="leavebox">
-                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
-                    <h4>Deekshitha Mickey</h4>
-                    <p>Leave for 23/02/2023</p>
-                </div>
-
-                <div class="leavebox">
-                    <img class="rounded-circle" src="profile_avatar.jpg" alt="" width="100px" height="100px">
-                    <h4>Deekshitha Mickey</h4>
-                    <p>Leave for 23/02/2023</p>
-                </div>
-
-            </div>
-            <p>1 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet eum atque, ab ex molestiae laudantium incidunt eius voluptates repudiandae commodi ducimus id, sequi itaque iure quibusdam ad blanditiis, nam tempore!</p>
-        </div>
 
         <!-- team tab--------- -->
         <div id="team" class="tab-content tabcontent">
             <div class="team-stat row text-center my-3">
-                <div class="col-md-6">
-                    <h4>Team Name</h4>
-                    <h4>Total Members 7</h4>
+                <div class="col-md-4 mt-2">
+                    <h4>{{userteam}}</h4>
                 </div>
-                <div class="col-md-6">
-                    <h4>Team leader</h4>
-                    <a class="btn btn-success" href="">Add Members</a>
+                <div class="col-md-4 mt-2">
+                    <h4>{{team_member_profiles|length}} current members</h4>
+                </div>
+                <div class="col-md-4 mt-2">
+                    <h4>Team lead - {{userteam.team_leader}}</h4>
                 </div>
             </div>
           
             <div class="team-members-list row">
-                <div class="col-md-6">
+                {% if grantedLeaves %}
+                {% for each in grantedLeaves %}
+                <div class="col-md-6">                    
                     <div class="member-card">
-                        <img src="profile_avatar.jpg" alt="" width="100px">
+                        <img src="{{each.userProfileurl.profilePicture.url}}" alt="" class="img-rounded" width="100px" height="100px">
                         <div class="m-content">
-                            <h5>Nikhil Gupta</h5>
-                            <p>hello dev</p>
+                            <h5>{{each.userProfileurl.first_name}}  {{each.userProfileurl.last_name}}</h5>
+                            <p>Leave on {{each.start_date}} to {{each.end_date}}</p>
+                            <h6>Granted</h6>
                         </div> 
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="member-card">
-                        <img src="profile_avatar.jpg" alt="" width="100px">
-                        <div class="m-content">
-                            <h5>Nikhil Gupta</h5>
-                            <p>hello dev</p>
-                        </div> 
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="member-card">
-                        <img src="profile_avatar.jpg" alt="" width="100px">
-                        <div class="m-content">
-                            <h5>Nikhil Gupta</h5>
-                            <p>hello dev</p>
-                        </div> 
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="member-card">
-                        <img src="profile_avatar.jpg" alt="" width="100px">
-                        <div class="m-content">
-                            <h5>Nikhil Gupta</h5>
-                            <p>hello dev</p>
-                        </div> 
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="member-card">
-                        <img src="profile_avatar.jpg" alt="" width="100px">
-                        <div class="m-content">
-                            <h5>Nikhil Gupta</h5>
-                            <p>hello dev</p>
-                        </div> 
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="member-card">
-                        <img src="profile_avatar.jpg" alt="" width="100px">
-                        <div class="m-content">
-                            <h5>Nikhil Gupta</h5>
-                            <p>hello dev</p>
-                        </div> 
-                    </div>
-                </div>
+                {% endfor %}
+                {% endif %}
             </div>
            
         </div>
 
+        <!-- leave tab -->
+        <div id="leave" class="tab-content tabcontent ">
+            <div class="leavelist">
+
+                {% for each in leaveApplications %}
+                
+                <div class="leavebox" id="leave{{each.id}}">
+                    <img class="rounded-circle" src="{{each.profileurl.profilePicture.url}}" alt="" width="100px" height="100px">
+                    <h4>{{each.user}}</h4>
+                    <p>Leave for {{each.start_date}} to {{each.end_date}} {{each.user}}</p>
+                    <p>Status - {{each.status}}</p>
+                    <button class="btn btn-success mb-3 appbtn" name="{{each.id}}" value="2" >approve</button>
+                    <button class="btn btn-danger mb-3 appbtn" name="{{each.id}}" value="3">Reject</button>
+                </div>
+                
+                {% endfor%}
+                
+            </div>
+            <p>1 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet eum atque, ab ex molestiae laudantium incidunt eius voluptates repudiandae commodi ducimus id, sequi itaque iure quibusdam ad blanditiis, nam tempore!</p>
+        </div>
+
+        
+
         <!-- Tickets tab--------- -->
         <div id="ticket" class="tab-content tabcontent">
         
-            <div class="teicket-stat row text-center my-3">
+            <div class="ticket-stat row text-center my-3">
                 <div class="col-md-6">
-                    <h4>Total tickets - 22</h4>
-                    <h4>Raised tickets- 02</h4>
+                    <h4>Cuurently raised tickets - <b>{{tickets|length}} </b> </h4>
                 </div>
                 <div class="col-md-6">
-                    <h4>Closed tickets - 20</h4>
+                    
                     <a class="btn btn-success" href="">Search Tickets</a>
                 </div>
             </div>
 
-            <div class="ticket-card">
-                <img src="profile_avatar.jpg" alt="" width="100px">
-                <div class="m-content">
-                    <h5>Nikhil Gupta</h5>
-                </div> 
-                <div class="m-content">
-                    <h5>Ticket date</h5>
-                </div> 
-                <div class="m-content">
-                    <h6>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatum odio, eveniet blanditiis mollitia nisi explicabo, vel rerum quae architecto culpa accusantium, at consectetur eos aperiam! Necessitatibus natus a temporibus.</h6>
-                </div> 
-                <div class="m-content last raised">
-                    <h5>Raised</h5>
-                </div>
-            </div>
+            {% if tickets %}
 
-            <div class="ticket-card">
-                <img src="profile_avatar.jpg" alt="" width="100px">
-                <div class="m-content">
-                    <h5>Nikhil Gupta</h5>
-                </div> 
-                <div class="m-content">
-                    <h5>Ticket date</h5>
-                </div> 
-                <div class="m-content">
-                    <h6>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatum odio, eveniet blanditiis mollitia nisi explicabo, vel rerum quae architecto culpa accusantium, at consectetur eos aperiam! Necessitatibus natus a temporibus.</h6>
-                </div> 
-                <div class="m-content last raised">
-                    <h5>Raised</h5>
-                </div>
-            </div>
+                    {% for each in tickets %}
+                    <div class="ticket-card">
+                        <div class="round-slno">
+                           <b> <h5 class="slno">{{forloop.counter}}</h5></b>
+                        </div>
+                        <div class="m-content">
+                            <h5>{{each.raised_by}}</h5>
+                        </div> 
+                        <div class="m-content">
+                            <h5>{{each.ticket_type}}</h5>
+                        </div> 
+                        <div class="m-content">
+                            <h5>{{each.ticket_number}}</h5>
+                        </div>
+                        <div class="m-content">
+                            <h5>{{each.raised_date}}</h5>
+                        </div>
+                         
+                        <div class="m-content">
+                            <h6>{{each.issue_detail}}</h6>
+                        </div> 
 
-            <div class="ticket-card">
-                <img src="profile_avatar.jpg" alt="" width="100px">
-                <div class="m-content">
-                    <h5>Nikhil Gupta</h5>
-                </div> 
-                <div class="m-content">
-                    <h5>Ticket date</h5>
-                </div> 
-                <div class="m-content">
-                    <h6>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatum odio, eveniet blanditiis mollitia nisi explicabo, vel rerum quae architecto culpa accusantium, at consectetur eos aperiam! Necessitatibus natus a temporibus.</h6>
-                </div> 
-                <div class="m-content last closed">
-                    <h5>Closed</h5>
-                </div>
-            </div>
-
-            <div class="ticket-card">
-                <img src="profile_avatar.jpg" alt="" width="100px">
-                <div class="m-content">
-                    <h5>Nikhil Gupta</h5>
-                </div> 
-                <div class="m-content">
-                    <h5>Ticket date</h5>
-                </div> 
-                <div class="m-content">
-                    <h6>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatum odio, eveniet blanditiis mollitia nisi explicabo, vel rerum quae architecto culpa accusantium, at consectetur eos aperiam! Necessitatibus natus a temporibus.</h6>
-                </div> 
-                <div class="m-content last processing">
-                    <h5>Processing</h5>
-                </div>
-            </div>
+                        <div class="m-content">
+                            <a href="{% url 'process_ticket_url' each.id %}" class="btn btn-primary my-1">Process</a>
+                            <a href="{% url 'reject_ticket_url' each.id %}" class="btn btn-danger my-1">reject</a>
+                        </div>
+                        {% if each.ticket_status == 0 %}
+                            <div class="m-content last raised">
+                                <h5>Raised</h5>
+                            </div>
+                        {% elif each.ticket_status == 1 %}
+                            <div class="m-content last processing">
+                                <h5>Processing</h5>
+                            </div>
+                        {% elif each.ticket_status == 2 %}
+                            <div class="m-content last closed">
+                                <h5>Closed</h5>
+                            </div>
+                        {% endif %}
+                        
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <h5 class="p-4">There are no Tickets as of now!</h5>
+                {% endif %}
 
 
         </div>
@@ -232,6 +151,8 @@
 
 
 {% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
     <script>
       function tabselect(evt, tabvar){
           var i, tabcontent, tabbtn;
@@ -249,5 +170,34 @@
           document.getElementById(tabvar).style.display = "block";
           evt.currentTarget.className += "tab-btn-active";
       }
+
+      // AJAX request to grant the leave
+
+        $('.appbtn').click(function(){
+            console.log("leave function is printed")
+            $.ajax({
+                type: "POST",
+                url: "{% url 'approveLeave' %}",
+                data: {'leave_application_id': $(this).attr('name'),'status':$(this).attr('value'),'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                dataType: "json",
+                success: function(response) {
+                console.log("success")
+                var instance = JSON.parse(response["instance"])
+
+                console.log(typeof(instance))
+                
+                var leave_application_id = instance
+                console.log(leave_application_id)
+                var temp = leave_application_id.toString(10)
+
+                console.log(typeof(instance))
+                var leavebox = document.getElementById("leave"+temp)
+                console.log("leave"+leave_application_id)
+                console.log(leavebox)
+                leavebox.remove()
+
+                }
+            });
+        });
   </script>
 {% endblock %}

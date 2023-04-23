@@ -12,3 +12,9 @@ class LeaveApplicationForm(ModelForm):
     class Meta:
         model = LeaveApplication
         fields = ['start_date', 'end_date', 'reason']
+
+
+class TicketForm(ModelForm):
+    class Meta:
+        model = TeamTicket
+        fields = ['ticket_type','issue_detail', 'issue_date']

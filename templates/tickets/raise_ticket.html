@@ -1,0 +1,74 @@
+{% extends 'dashboard/TM_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block css %}
+<title>Team Lead Dashboard</title>
+<link rel="stylesheet" href="{% static 'TL_dashboard.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+   
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{% static 'IMAGES/plane-tickets.png' %}" class="img-fluid p-5 " style="padding: 100px;">
+        </div>
+
+        <div class="col-md-6">
+            <form action="" method="Post" class="form px-5">
+                {% csrf_token %}
+        
+                {% if form.errors %}           
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                        
+                        <p>{{ error|escape }}</p>
+                            
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                    
+                        <p>{{ error|escape }}</p>
+                        
+                    {% endfor %}
+                {% endif %}
+                <h2 class="header my-4 ">Raise Ticket</h2>
+                <div class="row">
+                   
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Ticket Type</label>
+                            {% render_field form.ticket_type class+="form-control"  %}
+                        </div>
+        
+                       
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Issue Date</label>
+                            {% render_field form.issue_date class+="form-control" type="date" %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Issue Detail</label>
+                            {% render_field form.issue_detail class+="form-control" type="text" %}
+                        </div>
+                        
+                        
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-success">Raise Ticket</button>
+                        </div>
+
+
+                        
+                   
+                    <!-- <input type="submit" class="btn btn-success" name="Request Leave" id=""> -->
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

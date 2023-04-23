@@ -1,0 +1,96 @@
+{% extends 'dashboard/TL_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block css %}
+<title>Leave Report</title>
+<link rel="stylesheet" href="{% static 'TL_dashboard.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <h3 class="my-4 bg-dark rounded text-light p-3">Search Leave applications here!</h3>
+    
+    <form class="row g-3 my-3" method="get">
+        {% csrf_token %}
+        <div class="col-md-3">
+          <label for="inputEmail4" class="form-label">Leave Applied - start date</label>
+          {% render_field filter.form.applied_date__gte class+="form-control" type="date" %}
+        </div>
+        <div class="col-md-3">
+          <label for="inputPassword4" class="form-label">Leave Applied  - end date</label>
+          {% render_field filter.form.applied_date__lte class+="form-control" type="date" %}
+        </div>
+
+        <div class="col-md-3">
+            <label for="inputEmail4" class="form-label">Leave on - start date range</label>
+            {% render_field filter.form.start_date__gte class+="form-control" type="date" %}
+        </div>
+        <div class="col-md-3">
+        <label for="inputPassword4" class="form-label">Leave on  - end date range</label>
+        {% render_field filter.form.start_date__lte class+="form-control" type="date" %}
+        </div>
+        
+        <div class="col-md-6">
+          <label for="inputCity" class="form-label">Applied By</label>
+          {% render_field filter.form.user__username__icontains class+="form-control" type="text" %}
+        </div>
+        <div class="col-md-6">
+          <label for="inputState" class="form-label">Leave application Status</label>
+          {% render_field filter.form.status class+="form-control" type="text" %}
+        </div>
+        
+        
+    
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-success col-md-2">Search Leave Applications</button>
+            <a class="btn btn-dark col-md-2" href="{% url 'TL_leave_report_url' %}">Clear Search</a>  
+        </div>
+      </form>
+    
+    <div class="mt-3">
+      <hr >
+    </div>
+    
+    <div class="row ">
+        <div class="table">
+            <table class="table table-responsive ">
+                <tr>
+                    <th>ID</th>
+                    <th>Applied By</th>
+                    <th>Applied on</th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                </tr>
+            
+            
+                {% for leave in filteredlist %}
+                <tr>
+                    <td>{{ leave.id }}</td>
+                    <td>{{ leave.user }}</td>
+                    <td>{{ leave.applied_date }}</td>
+                    <td>{{ leave.start_date }} {{leave.raised_by.last_name}}</td>
+                    <td>{{ leave.end_date }}</td>
+                    <td>{{ leave.reason }}</td>
+                    
+                    
+                    {% if leave.status == 1 %}
+                    <td class="raised rounded bg-warning">Pending</td>
+                    {% elif leave.status == 2 %}
+                    <td class="processing rounded bg-success">Approved</td>
+                    {% elif leave.status == 3 %}
+                    <td class="rejected rounded bg-dark text-light">Rejected</td>
+                    {% endif %}
+                </tr>
+            
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

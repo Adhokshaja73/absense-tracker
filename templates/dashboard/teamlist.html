@@ -1,0 +1,85 @@
+{% extends 'dashboard/TL_base.html' %}
+{% load static %}
+
+{% block css %}
+<title>Team Details</title>
+<link rel="stylesheet" href="{% static 'TL_dashboard.css' %}">
+
+
+<style>
+    .teamheader{
+        background-image: url("{% static 'images/team.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        height: 350px;
+        border-top-right-radius: 1rem;
+        border-top-left-radius: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .membercard{
+        background-color: #f5f5f5;
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        -moz-box-shadow: 5px 6px 16px -7px rgba(0,0,0,0.75);
+        box-shadow: 4px 4px 8px -8px rgba(0,0,0,0.75);
+    }
+
+    .membercard img{
+        margin: 0;
+        padding: 0;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container my-5 rounded">
+        <div class="row">
+            <div class="col-md-12 teamheader">
+                
+            </div>
+            <div class="col-md-4 team-detail bg-warning p-3">
+                
+                <h2> <b>{{ teamlist.team_name|upper }} </b></h2>
+                <h4>Team lead - {{teamlist.team_leader |upper}}</h4>
+                <h4>{{teamstat.membercount}} Current members</h4>
+                {% if teamstat.onleavetoday == 1 %}
+                <h4>{{teamstat.onleavetoday}} member on leave Today</h4>
+                {% else %}
+                <h4>{{teamstat.onleavetoday}} members on leave Today</h4>
+                {% endif %}
+                <hr>
+                <h4>On Leave List</h4>
+                {% for each in teamstat.onleavemembers %}
+                <h5>{{ each.user }}</h5>
+                {% endfor %}
+            </div>
+            <div class="col-md-8 tema_members">
+
+                {% for each in memprofile %}
+                <div class="membercard row">
+                    <div class="col-md-3 m-0 p-0">
+                        <img src="{{each.profilePicture.url}}" alt="" width="150px" height="150px">
+                    </div>
+
+                    <div class="col-md-4 my-auto">
+                        <h4>{{each.first_name}} {{each.last_name}}</h4>
+                        <h4>{{each.user }}</h4>
+                    </div>
+
+                    <div class="col-md-5 my-auto">
+                        <h4>{{each.email}}</h4>
+                        <h4>{{each.phone_number}}</h4>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,88 @@
+{% extends 'dashboard/TL_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block css %}
+<title>Ticket Report</title>
+<link rel="stylesheet" href="{% static 'TL_dashboard.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <h3 class="my-4 bg-dark rounded text-light p-3">Search Tickets here!</h3>
+    
+        <form class="row g-3" method="get">
+            {% csrf_token %}
+            <div class="col-md-6">
+              <label for="inputEmail4" class="form-label">Ticket Raised - start date</label>
+              {% render_field filter.form.raised_date__gte class+="form-control" type="date" %}
+              <!-- <input type="email" class="form-control" id="inputEmail4"> -->
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Ticket Raised - end date</label>
+              {% render_field filter.form.raised_date__lte class+="form-control" type="date" %}
+            </div>
+            
+            <div class="col-md-4">
+              <label for="inputCity" class="form-label">Ticket Number</label>
+              {% render_field filter.form.ticket_number__icontains class+="form-control" type="text" %}
+            </div>
+            <div class="col-md-4">
+              <label for="inputState" class="form-label">Ticket Status</label>
+              {% render_field filter.form.status class+="form-control" type="text" %}
+            </div>
+            <div class="col-md-4">
+              <label for="inputZip" class="form-label">Ticket raised by</label>
+              {% render_field filter.form.raised_by__username__icontains class+="form-control" type="text" %}
+            </div>
+            
+        
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-success col-md-2">Search tickets</button>
+                <a class="btn btn-dark col-md-2" href="{% url 'TL_ticket_report_url' %}">Clear Search</a>  
+            </div>
+          </form>
+    <hr class="my-3">
+    <div class="row ">
+        <div class="table ">
+            <table class="table table-responsive ">
+                <tr>
+                    <th>ID</th>
+                    <th>Ticket Number</th>
+                    <th>Raised By</th>
+                    <th>Raised Date</th>
+                    <th>Issue</th>
+                    <th>Status</th>
+                </tr>
+            
+            
+                {% for ticket in filter.qs %}
+                <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.ticket_number }}</td>
+                    <td>{{ ticket.raised_by }} {{ticket.raised_by.last_name}}</td>
+                    <td>{{ ticket.raised_date }}</td>
+                    <td>{{ticket.issue_detail}}</td>
+                    
+                    {% if ticket.ticket_status == 0 %}
+                    <td class="raised rounded bg-warning">Raised</td>
+                    {% elif ticket.ticket_status == 1 %}
+                    <td class="processing rounded bg-primary">Processing</td>
+                    {% elif ticket.ticket_status == 2 %}
+                    <td class="rejected rounded bg-dark text-light">Rejected</td>
+                    {% elif ticket.ticket_status == 3 %}
+                    <td class="closed rounded bg-success">Closed</td>
+                    {% elif ticket.ticket_status == 4 %}
+                    <td class="closed rounded bg-danger">Deleted</td>
+                    {% endif %}
+                </tr>
+            
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

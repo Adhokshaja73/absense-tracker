@@ -16,7 +16,7 @@ class UserRole(models.Model):
 
 #  userprofile Model that stores user info like phone number, address, email and user foreign key is used to link the user to the profile
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
@@ -52,12 +52,14 @@ class Team(models.Model):
 # status is a choice field that stores the status of the leave application
 class LeaveApplication(models.Model):
     LEAVE_STATUS_CHOICES = ( (1, 'Pending'), (2, 'Approved'), (3, 'Rejected') )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, blank=True)
     reason = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
     status = models.IntegerField(choices=LEAVE_STATUS_CHOICES, default=1)
+    applied_date = models.DateField(auto_now_add=True)
+    
     def __str__(self):
         return self.user.username + ' - ' + self.team.team_name + ' - ' + self.reason
 
@@ -66,9 +68,9 @@ class LeaveApplication(models.Model):
         # check if start date is before end date
         if self.start_date > self.end_date:
             raise ValidationError('Start date cannot be after end date')
-        # check if leave application is for the same team
-        if self.team not in self.user.team_members.all():
-            raise ValidationError('Leave application is not for the same team')
+        # # check if leave application is for the same team
+        # if self.team not in self.user.team_members.all():
+        #     raise ValidationError('Leave application is not for the same team')
         
 # notification model that stores the notification message and the user to whom the notification is sent
 class Notification(models.Model):
@@ -87,3 +89,36 @@ class CalenderEvent(models.Model):
     startDateTime = models.DateTimeField()
     endDateTime = models.DateTimeField()
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
+
+
+class Ticket_type(models.Model):
+    ticket_type_name = models.CharField(max_length=30, verbose_name="Ticket-type name")
+    ticket_type_desc = models.TextField(verbose_name="Description")
+    ticket_type_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.ticket_type_name
+
+class TeamTicket(models.Model):
+    STATUS_CHOICES = ((0,'raised'), (1,'processing'), (2,'rejected'), (3,'closed'), (4,'Deleted'))
+
+    ticket_number = models.CharField(max_length=10,null=True, blank=True,verbose_name="Ticket number")
+
+    ticket_type = models.ForeignKey(Ticket_type,on_delete=models.CASCADE, related_name='ticket_type' , verbose_name="Ticket type")
+    raised_date = models.DateTimeField(auto_now_add=True, verbose_name="Raised Date")
+    raised_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ticket_user')
+    issue_detail = models.TextField(verbose_name="Issue Details")
+    issue_date = models.DateTimeField(auto_now_add=False,null=True, blank=True, verbose_name="Issue date")
+
+    response_date = models.DateTimeField(auto_now_add=False,null=True, blank=True, verbose_name="Response date")
+    response_by = models.ForeignKey( User,on_delete=models.CASCADE,null=True, blank=True,verbose_name="Response by")
+    comments = models.TextField(null=True, blank=True,verbose_name="comments by Teamlead")
+
+    ticket_status = models.IntegerField(choices=STATUS_CHOICES, default=0)
+    closed_date = models.DateTimeField(auto_now_add=False,null=True, blank=True, verbose_name="Closed date")
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='teamfk')
+    closed_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='close_ticket_user',null=True, blank=True,verbose_name="Closed by")
+
+    def __str__(self):
+        return self.ticket_number
+    
