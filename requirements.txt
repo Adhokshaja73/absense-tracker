@@ -8,6 +8,7 @@ cryptography==40.0.0
 defusedxml==0.7.1
 Django==4.1.7
 django-allauth==0.53.1
+django-filter==23.1
 django-widget-tweaks==1.4.12
 idna==3.4
 oauthlib==3.2.2
