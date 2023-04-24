@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
 
+    path('test' , views.test, name='test_url'),
+
     # ------------------ Account URLS ---------------------------------------------------
     path('create_user_profile/', views.create_user_profile, name='create_user_profile'),
     path('accounts/profile/', views.home, name='home_url'),

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import *
@@ -9,6 +9,15 @@ import random
 
 from django.core import serializers
 from main.filters import  TicketFilter, LeaveFilter
+
+from team_management import settings
+
+from django.core.mail import send_mail
+
+def test(request):
+    mail()
+    return HttpResponse("Hello, world. You're at the polls index.")
+
 
 # Create your views here.
 # function to return homepage of the user
@@ -242,6 +251,8 @@ def approve_leave_application(request):
                                     return JsonResponse({"instance": data,'status': 'success', 'message': 'Leave application rejected'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Only post request allowed'})
+    
+# function
 
 def TL_leave_report(request):
     leaveList = LeaveApplication.objects.filter(team__team_leader=request.user)
@@ -254,8 +265,16 @@ def TL_leave_report(request):
     context = {'leavelist':leaveList,'filter': tempfilteredlist,'filteredlist':filteredlist}
     return render(request, 'leaves/TL_leave_report.html', context)
 
-
-
+# function to send mail
+def mail():
+    
+    stat = send_mail(
+        subject='Add an eye-catching subject',
+        message='Write an amazing message',
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=['your_friend@their_email.com'])
+    
+    print(stat)
 
 
 
