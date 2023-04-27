@@ -20,4 +20,10 @@ Pages needed :
 Flow : Create account.. 
 	 Wait for role to be assigned by admin
 	 Once role is assigned and team is assigned, you can get full access
+
+	
+
+
+1) error message
+2) leave application status is a number. make it string
 	 

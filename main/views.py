@@ -12,12 +12,16 @@ from main.filters import  TicketFilter, LeaveFilter
 
 from team_management import settings
 
-from django.core.mail import send_mail
+import smtplib
+from email.message import EmailMessage
 
-def test(request):
-    mail()
-    return HttpResponse("Hello, world. You're at the polls index.")
+mail_server = smtplib.SMTP('smtp.gmail.com', 587)
+mail_server.starttls()
+mail_server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
 
+msg = EmailMessage()
+msg['Subject'] = "Leave Notification"
+msg['From'] = settings.EMAIL_HOST_USER
 
 # Create your views here.
 # function to return homepage of the user
@@ -206,7 +210,11 @@ def approve_leave_application(request):
                 else:
                     # leave_application = leave_application.get()
                     # check if leave application is pending
-                    
+                    applicationUserProfile = None
+                    try:
+                        applicationUserProfile = UserProfile.objects.filter(user = leave_application.user).get()
+                    except:
+                        return JsonResponse({'status': 'error', 'message': 'User profile not found'})
                     if(leave_application.status != 1):
                         return JsonResponse({'status': 'error', 'message': 'Leave application is not pending'})
                     else:
@@ -237,11 +245,22 @@ def approve_leave_application(request):
                                     
                                     # calender_event = CalenderEvent(team=leave_application.team, title=leave_application.user.first_name + " " + leave_application.user.last_name + " is on leave", start_date=leave_application.start_date, end_date=leave_application.end_date)
                                     # calender_event.save()
-                                    # notification = Notification(user=user, message="Your leave application has been approved")
-                                    # notification.save()
+                                    notification = Notification(user=user, message="Your leave application has been approved")
+                                    notification.save()
 
-                                    # TODO write code to send email to user
-                                
+                                    # get list of emails of team members
+                                    team_members = leave_application.team.team_members.all()
+                                    email_list = []
+                                    for team_member in team_members:
+                                        email_list.append(team_member.email)
+                                    print(email_list)
+                                    # send email to team members
+                                    msg['To'] = ", ".join(email_list)
+                                    mail_message = str(applicationUserProfile.first_name) + " " + str(applicationUserProfile.last_name) + " will be on PTO From :  " + str(leave_application.start_date) + " to : " + str(leave_application.end_date)
+                                    msg.set_content(mail_message)
+
+                                    mail_server.send_message(msg)
+
                                     # data = serializers.serialize('json', list(newleavelist))
                                     return JsonResponse({"instance": data,'status': 'success', 'message': 'Leave application approved'})
                                 else:
@@ -266,15 +285,6 @@ def TL_leave_report(request):
     return render(request, 'leaves/TL_leave_report.html', context)
 
 # function to send mail
-def mail():
-    
-    stat = send_mail(
-        subject='Add an eye-catching subject',
-        message='Write an amazing message',
-        from_email=settings.EMAIL_HOST_USER,
-        recipient_list=['your_friend@their_email.com'])
-    
-    print(stat)
 
 
 
